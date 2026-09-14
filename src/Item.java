@@ -3,7 +3,7 @@ public class Item {
     private int quantidade;
     private double valor;
 
-    public Item(Produto produto, int quantidade, double valor) {
+    public Item(Produto produto, int quantidade) {
         this.setProduto(produto);
         this.setQuantidade(quantidade);
         this.setValor(calcularValor());

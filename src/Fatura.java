@@ -11,7 +11,9 @@ public class Fatura {
 
     public double calcularValor() {
         double valor = 0;
+
         for (Item item : this.getItens()) valor += item.getValor();
+
         return valor;
     }
 
