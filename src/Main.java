@@ -10,30 +10,27 @@ public class Main {
         produtos.add(new Produto("Batata", "2", 2.50));
         produtos.add(new Produto("Cenoura", "3", 3));
 
-        ArrayList<Item> itens = new ArrayList<>();
+        Fatura fatura = new Fatura(new ArrayList<Item>());
 
         int menuOpcao = 0;
+        boolean menuRepetindo = false;
         while (menuOpcao != 5) {
-            if (!itens.isEmpty()) {
-                System.out.println("\nLista de itens:");
-
-                for (Item item : itens)
-                    System.out.printf("\t%s(%d) = R$%.2f\n", item.getProduto().getNome(), item.getQuantidade(), item.getValor());
-            }
-
             do {
-                System.out.print("""
-                        Menu:
-                            1 - Comprar
-                            2 - Ver fatura
-                            3 - Excluir item
-                            4 - Alterar item
-                            5 - Finalizar""");
-                System.out.print("\n\t> ");
+                if (!menuRepetindo) System.out.println("Menu:");
+                else System.out.println("\nMenu:");
+
+                System.out.println("\t1 - Comprar\n" +
+                        "\t2 - Ver fatura\n" +
+                        "\t3 - Excluir item\n" +
+                        "\t4 - Alterar item\n" +
+                        "\t5 - Finalizar");
+                System.out.print("\t> ");
                 menuOpcao = sc.nextInt();
 
                 if (menuOpcao < 1 || menuOpcao > 5) System.out.println("\nOpção inválida!\n");
             } while (menuOpcao < 1 || menuOpcao > 5);
+
+            menuRepetindo = true;
 
             if (menuOpcao == 1) {
                 System.out.println("\n1 - Comprar:\n");
@@ -41,11 +38,7 @@ public class Main {
                 boolean produtoExiste = false;
                 do {
                     for (Produto produto : produtos) {
-                        System.out.printf("""
-                            %s:
-                                Código = %s
-                                Preço = R$%.2f
-                            """,
+                        System.out.printf("%s:\n\tCódigo = %s\n\tPreço = R$%.2f\n",
                                 produto.getNome(),
                                 produto.getCodigo(),
                                 produto.getPreco());
@@ -61,7 +54,7 @@ public class Main {
                         if (produto.getCodigo().equals(produtoCodigo)) {
                             produtoExiste = true;
 
-                            itens.add(new Item(produto, produtoQuantidade));
+                            fatura.adicionarItem(new Item(produto, produtoQuantidade));
 
                             break;
                         }
@@ -69,6 +62,23 @@ public class Main {
 
                     if (!produtoExiste) System.out.println("\nCódigo de produto inválido!\n");
                 } while (!produtoExiste);
+            }
+
+            if (menuOpcao == 2) {
+                System.out.println("\n2 - Ver fatura:\n");
+
+                if (!fatura.getItens().isEmpty()) {
+                    System.out.println("Fatura:");
+
+                    for (Item item : fatura.getItens()) {
+                        System.out.printf("\t%s(%d) = R$%.2f\n",
+                                item.getProduto().getNome(),
+                                item.getQuantidade(),
+                                item.getValor());
+                    }
+
+                    System.out.printf("\n\tValor final: R$%.2f\n", fatura.getValor());
+                } else System.out.println("A fatura está vazia");
             }
         }
     }

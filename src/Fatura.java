@@ -17,6 +17,12 @@ public class Fatura {
         return valor;
     }
 
+    public void adicionarItem(Item item) {
+        this.getItens().add(item);
+
+        this.setValor(calcularValor());
+    }
+
     public ArrayList<Item> getItens() {
         return itens;
     }
