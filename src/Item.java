@@ -13,10 +13,14 @@ public class Item {
         return this.getProduto().getPreco() * this.getQuantidade();
     }
 
-    public void realizarCompra(int quantidade) {
-        this.setQuantidade(this.getQuantidade() + quantidade);
+    public void alterarQuantidade(int quantidade) {
+        this.setQuantidade(quantidade);
 
         this.setValor(calcularValor());
+    }
+
+    public void realizarCompra(int quantidade) {
+        this.alterarQuantidade(this.getQuantidade() + quantidade);
     }
 
     public Produto getProduto() {
