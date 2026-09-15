@@ -18,9 +18,25 @@ public class Fatura {
     }
 
     public void adicionarItem(Item item) {
-        this.getItens().add(item);
+        String itemCodigo = item.getProduto().getCodigo();
+
+        if (existeItem(itemCodigo)) {
+            for (Item faturaItem : this.getItens()) {
+                if (faturaItem.getProduto().getCodigo().equals(itemCodigo)) {
+                    faturaItem.realizarCompra(item.getQuantidade());
+
+                    break;
+                }
+            }
+        } else this.getItens().add(item);
 
         this.setValor(calcularValor());
+    }
+
+    public boolean existeItem(String codigo) {
+        for (Item item : this.getItens()) if (item.getProduto().getCodigo().equals(codigo)) return true;
+
+        return false;
     }
 
     public ArrayList<Item> getItens() {
