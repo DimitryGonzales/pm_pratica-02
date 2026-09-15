@@ -67,7 +67,7 @@ public class Main {
                     String produtoCodigo = sc.next();
                     int produtoQuantidade = sc.nextInt();
 
-                    if (produtoQuantidade <= 0) break;
+                    if (produtoCodigo.equals("0") || produtoQuantidade <= 0) break;
 
                     for (Produto produto : produtos) {
                         if (produto.getCodigo().equals(produtoCodigo)) {
