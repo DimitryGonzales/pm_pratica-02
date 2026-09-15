@@ -68,16 +68,37 @@ public class Main {
                 System.out.println("\n2 - Ver fatura:\n");
 
                 if (!fatura.getItens().isEmpty()) {
-                    System.out.println("Fatura:");
-
-                    for (Item item : fatura.getItens()) {
-                        System.out.printf("\t%s(%d) = R$%.2f\n",
-                                item.getProduto().getNome(),
-                                item.getQuantidade(),
-                                item.getValor());
-                    }
+                    System.out.printf("%s\n", fatura.exibirItens());
 
                     System.out.printf("\n\tValor final: R$%.2f\n", fatura.getValor());
+                } else System.out.println("A fatura está vazia");
+            }
+
+            if (menuOpcao == 3) {
+                System.out.println("\n3 - Excluir item:\n");
+
+                if (!fatura.getItens().isEmpty()) {
+                    String itemCodigo;
+
+                    do {
+                        System.out.printf("%s\n", fatura.exibirItens());
+
+                        System.out.print("\nCódigo(0 para cancelar): ");
+                        itemCodigo = sc.next();
+
+                        if (itemCodigo.equals("0")) break;
+
+                        if (!fatura.existeItem(itemCodigo)) System.out.println("\nCódigo de item inválido!\n");
+                    } while (!fatura.existeItem(itemCodigo));
+
+                    if (!itemCodigo.equals("0")) {
+                        for (int i = 0; i < fatura.getItens().size(); i++) {
+                            if (fatura.getItens().get(i).getProduto().getCodigo().equals(itemCodigo)) {
+                                fatura.removerItem(itemCodigo);
+                            }
+                        }
+                    }
+
                 } else System.out.println("A fatura está vazia");
             }
         }
