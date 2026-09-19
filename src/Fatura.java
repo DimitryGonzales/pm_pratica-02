@@ -40,9 +40,9 @@ public class Fatura {
     }
 
     public void removerItem(String codigo) {
-        for (int i = 0; i < this.getItens().size(); i++){
-            if (this.getItens().get(i).getProduto().getCodigo().equals(codigo)) {
-                this.getItens().remove(i);
+        for (Item item : this.getItens()){
+            if (item.getProduto().getCodigo().equals(codigo)) {
+                this.getItens().remove(item);
 
                 break;
             }
@@ -52,16 +52,14 @@ public class Fatura {
     public StringBuilder exibirItens() {
         StringBuilder itens = new StringBuilder();
 
-        for (int i = 0; i < this.getItens().size(); i++) {
-            Item item = this.getItens().get(i);
-
+        for (Item item : this.getItens()) {
             itens.append(item.getProduto().getNome()).append("\n")
                     .append("\tCódigo: ").append(item.getProduto().getCodigo()).append("\n")
                     .append("\tPreço: R$").append(item.getProduto().getPreco()).append("\n")
                     .append("\tQuantidade: ").append(item.getQuantidade()).append("\n")
                     .append("\tValor: R$").append(item.getValor());
 
-            if (i < this.getItens().size() - 1) itens.append("\n");
+            if (this.getItens().indexOf(item) < this.getItens().size() - 1) itens.append("\n");
         }
 
         return itens;

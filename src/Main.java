@@ -101,15 +101,14 @@ public class Main {
                         itemCodigo = receberItemCodigo(fatura, sc);
 
                         if (!itemCodigo.equals("0")) {
-                            for (int i = 0; i < fatura.getItens().size(); i++) {
-                                if (fatura.getItens().get(i).getProduto().getCodigo().equals(itemCodigo)) {
+                            for (Item item : fatura.getItens()) {
+                                if (item.getProduto().getCodigo().equals(itemCodigo)) {
                                     fatura.removerItem(itemCodigo);
 
                                     break;
                                 }
                             }
                         }
-
                     } else System.out.println("A fatura está vazia");
 
                     break;
@@ -131,9 +130,7 @@ public class Main {
                             } while (itemQuantidade < 0);
 
                             if (itemQuantidade > 0) {
-                                for (int i = 0; i < fatura.getItens().size(); i++) {
-                                    Item item = fatura.getItens().get(i);
-
+                                for (Item item : fatura.getItens()) {
                                     if (item.getProduto().getCodigo().equals(itemCodigo)) {
                                         item.alterarQuantidade(itemQuantidade);
 
@@ -142,16 +139,13 @@ public class Main {
                                 }
                             }
                         }
-
                     } else System.out.println("A fatura está vazia");
 
                     break;
 
-                case 5:
-                    break;
+                case 5: break;
 
-                default:
-                    System.out.println("\nOpção inválida!\n");
+                default: System.out.println("\nOpção inválida!\n");
             }
         } while (menuOpcao != 5);
     }
